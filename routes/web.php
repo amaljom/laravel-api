@@ -28,3 +28,7 @@ Route::middleware('auth')
             // Route::get('/profile', 'HomeController@getProfile')->name('profile');
             Route::resource('/posts', 'PostController');
         });
+
+Route::get("{any?}", function(){
+    return view("quest.home");
+})->where("any", ".*");
