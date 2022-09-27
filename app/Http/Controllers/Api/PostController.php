@@ -16,8 +16,13 @@ class PostController extends Controller
     public function index()
     {
         $posts= Post::all();
+
         return response()->json([
-            "posts"=> $posts
+            'response'=>true,
+            'count'=> count($posts),
+            'result'=>[
+                'data'=> $posts
+            ]
         ]);
     }
 
@@ -50,7 +55,14 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post= Post::with('user')->find($id);
+
+        return response()->json([
+            'response'=>true,
+            'result'=>[
+                'data'=> $post
+            ]
+        ]);
     }
 
     /**
