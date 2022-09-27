@@ -12,11 +12,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('guest.welcome');
-});
-
 Auth::routes();
 
 Route::middleware('auth')
@@ -30,5 +25,5 @@ Route::middleware('auth')
         });
 
 Route::get("{any?}", function(){
-    return view("quest.home");
+    return view("guest.home");
 })->where("any", ".*");
