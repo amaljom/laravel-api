@@ -2,6 +2,9 @@
   <div>
     <ul>
         <li v-for="post in posts" :key="post.id">
+            {{ post.user.name }}
+        </li>
+        <li v-for="post in posts" :key="post.id">
             {{ post.author }}
         </li>
     </ul>
