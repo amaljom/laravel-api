@@ -1909,7 +1909,12 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['posts']
+  props: ['posts', 'tags'],
+  methods: {
+    countArray: function countArray(posts) {
+      return posts.length;
+    }
+  }
 });
 
 /***/ }),
@@ -1934,7 +1939,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      posts: []
+      posts: [],
+      tags: []
     };
   },
   methods: {
@@ -1942,11 +1948,15 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var postPage = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/posts', {
-        page: postPage
-      }).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/posts', {}).then(function (response) {
         _this.posts = response.data.result.data;
         console.log(_this.posts);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/tags', {}).then(function (response) {
+        _this.tags = response.data.result.data;
+        console.log(_this.tags);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -1982,7 +1992,11 @@ var render = function render() {
     return _c("li", {
       key: post.id
     }, [_vm._v("\n          " + _vm._s(post.author) + "\n      ")]);
-  })], 2)]);
+  })], 2), _vm._v(" "), _c("ul", _vm._l(_vm.tags, function (tag) {
+    return _c("li", {
+      key: tag.id
+    }, [_vm._v("\n          " + _vm._s(tag.name) + "\n           " + _vm._s(_vm.countArray(tag.posts)) + "\n      ")]);
+  }), 0)]);
 };
 
 var staticRenderFns = [];
@@ -2008,7 +2022,8 @@ var render = function render() {
 
   return _c("section", [_c("Main", {
     attrs: {
-      posts: _vm.posts
+      posts: _vm.posts,
+      tags: _vm.tags
     }
   })], 1);
 };

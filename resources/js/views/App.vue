@@ -1,7 +1,7 @@
 <template>
 
     <section>
-        <Main :posts="posts"/>
+        <Main :posts="posts" :tags="tags"/>
     </section>
    
 </template>
@@ -17,17 +17,25 @@ export default {
     },
     data:function(){
         return{
-            posts:[]
+            posts:[],
+            tags:[]
         }
     },
     
     methods:{
         getPosts(postPage=1){
             axios.get('/api/posts',{
-                page: postPage
             }).then((response)=>{
                 this.posts=response.data.result.data;
                 console.log(this.posts);
+            }).catch((error)=>{
+                console.log(error)
+            })
+
+            axios.get('/api/tags',{
+            }).then((response)=>{
+                this.tags=response.data.result.data;
+                console.log(this.tags);
             }).catch((error)=>{
                 console.log(error)
             })

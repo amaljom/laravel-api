@@ -15,7 +15,7 @@ class TagsController extends Controller
      */
     public function index()
     {
-        $tags= Tag::all();
+        $tags= Tag::with('posts')->get();
 
         return response()->json([
             'response'=>true,
@@ -55,7 +55,14 @@ class TagsController extends Controller
      */
     public function show($id)
     {
-        //
+        $tag= Tag::with('posts')->get();
+
+        return response()->json([
+            'response'=>true,
+            'result'=>[
+                'data'=> $tag
+            ]
+        ]);
     }
 
     /**
