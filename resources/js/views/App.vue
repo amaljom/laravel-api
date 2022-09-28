@@ -1,17 +1,20 @@
 <template>
-    <div>
-       <ul>
-        <li v-for="post in posts" :key="post.id">
-            {{ post.author }}
-        </li>
-       </ul>
-    </div>
+
+    <section>
+        <Main :posts="posts"/>
+    </section>
+   
 </template>
 
 <script>
+import Main from '../components/Main.vue'
 import axios from 'axios';
 
+
 export default {
+    components:{
+        Main,
+    },
     data:function(){
         return{
             posts:[]
@@ -24,7 +27,7 @@ export default {
                 page: postPage
             }).then((response)=>{
                 this.posts=response.data.result.data;
-                console.log(this.posts)
+                console.log(this.posts);
             }).catch((error)=>{
                 console.log(error)
             })
@@ -35,6 +38,7 @@ export default {
         this.getPosts();
     }
 }
+
 </script>
 
 <style>
